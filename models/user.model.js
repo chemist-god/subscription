@@ -25,4 +25,9 @@ const userSchema = new mongoose.Schema({
         minLength: [6, 'User Password must be at least 6 characters long'],
         maxLength: [20, 'User Password must be at most 20 characters long'],
     },
-});
+}
+, { timestamps: true });
+
+const User = mongoose.model('User', userSchema);
+
+export default User;
