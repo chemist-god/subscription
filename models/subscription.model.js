@@ -15,7 +15,11 @@ const subscriptionSchema = new mongoose.Schema({
         required: [true, 'Subscription Price is required'],
         min: [0, 'Subscription Price must greater than 0'],
     },
-
+    currency: {
+        type: String,
+        required: [true, 'Currency is required'],
+        enum : ['USD','GHC','EUR','ETH','BTC'],
+    },
     description: {
         type: String,
         required: [true, 'Subscription Description is required'],
