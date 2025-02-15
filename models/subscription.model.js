@@ -52,3 +52,9 @@ const subscriptionSchema = new mongoose.Schema({
         maxLength: [50, 'Subscription Description must be at most 50 characters long'],
     },
 } , { timestamps: true });
+
+subscriptionSchema.pre('save', function(next) {
+    this.name = this.name.toLowerCase();
+    this.description = this.description.toLowerCase();
+    next();
+});
