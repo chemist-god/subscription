@@ -54,7 +54,12 @@ const subscriptionSchema = new mongoose.Schema({
 } , { timestamps: true });
 
 subscriptionSchema.pre('save', function(next) {
-    this.name = this.name.toLowerCase();
-    this.description = this.description.toLowerCase();
-    next();
+    if (!this.reneweDqate) {
+        const renewalPeriods = {
+            daily: 1,
+            weekly: 7,
+            monthly: 30,
+            yearly: 365,
+        };
+    }
 });
