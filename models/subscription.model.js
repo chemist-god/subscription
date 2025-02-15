@@ -20,6 +20,29 @@ const subscriptionSchema = new mongoose.Schema({
         required: [true, 'Currency is required'],
         enum : ['USD','GHC','EUR','ETH','BTC'],
     },
+    frequency: {
+        type: String,
+        required: [true, 'choose your subscription frequency '],
+        enum : ['daily','weekly','monthly','yearly'],
+    },
+    category: {
+        type: String,
+        required: [true, 'Subscription Category is required'],
+        enum : ['sports','news','entertainment','technology','fashion','food','health','politics'],
+    },
+    paymentMethod: {
+        type: String,
+        required: [true, 'Payment Method is required'],
+        enum : ['credit card','debit card','paypal','crypto currency'],
+        trim: true,
+    },
+    status: {
+        type: String,
+        required: [true, 'Subscription Status is required'],
+        enum : ['active','expired','pending','cancelled'],
+        trim: true,
+        default: 'active',
+    },
     description: {
         type: String,
         required: [true, 'Subscription Description is required'],
