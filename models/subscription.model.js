@@ -19,6 +19,7 @@ const subscriptionSchema = new mongoose.Schema({
         type: String,
         required: [true, 'Currency is required'],
         enum : ['USD','GHC','EUR','ETH','BTC'],
+        default: 'USD',
     },
     frequency: {
         type: String,
@@ -42,6 +43,16 @@ const subscriptionSchema = new mongoose.Schema({
         enum : ['active','expired','pending','cancelled'],
         trim: true,
         default: 'active',
+    },
+    startDate: {
+        type: Date,
+        required: [true, 'Subscription Start Date is required'],
+        validate : {
+            validator : function(value) {
+                return value > new Date();
+            },
+            message : 'Subscription Start Date must be a future date'
+        }
     },
     description: {
         type: String,
