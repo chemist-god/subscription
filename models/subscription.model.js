@@ -80,6 +80,7 @@ const subscriptionSchema = new mongoose.Schema({
     },
 } , { timestamps: true });
 
+  //Auto calculate renewal date based on frequency
 subscriptionSchema.pre('save', function(next) {
     if (!this.reneweDqate) {
         const renewalPeriods = {
@@ -88,5 +89,8 @@ subscriptionSchema.pre('save', function(next) {
             monthly: 30,
             yearly: 365,
         };
+        this.renewalDate = new Date(this.startDate);
+        this.renewalDate.setDate(this.renewalDate.getDate() + renewalPeriods[this.frequency]);
     }
+    
 });
