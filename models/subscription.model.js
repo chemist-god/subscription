@@ -72,6 +72,12 @@ const subscriptionSchema = new mongoose.Schema({
         minLength: [3, 'Subscription Description must be at least 3 characters long'],  
         maxLength: [50, 'Subscription Description must be at most 50 characters long'],
     },
+    user: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User',
+        required: true,
+        index: true,
+    },
 } , { timestamps: true });
 
 subscriptionSchema.pre('save', function(next) {
