@@ -54,6 +54,16 @@ const subscriptionSchema = new mongoose.Schema({
             message : 'Subscription Start Date must be a future date'
         }
     },
+    renewalDate: {
+        type: Date,
+        required: [true, 'Subscription End Date is required'],
+        validate : {
+            validator : function(value) {
+                return value > this.startDate;
+            },
+            message : 'Subscription End Date must be greater than Start Date'
+        }
+    },
     description: {
         type: String,
         required: [true, 'Subscription Description is required'],
