@@ -23,9 +23,21 @@ export const signUp = async (req, res) => {
         //Create user
         const newUser = await User.create([{ name, email, password: hashedPassword }], { session: session });
 
-        const token = jwt.sign({ userId: newUser[0]._id }, process.env.JWT_SECRET, { expiresIn: JWT_EXIRES_IN });
+        const token = jwt.sign({ userId: newUser[0]._id }, process.env.JWT_SECRET, { expiresIn: JWT_EXPIRES_IN });
 
-
+        await session.commitTransaction();
+        session.endSession();
+        return res.status(201).json({ 
+            message: 'User created successfully',
+            data: {
+                user: {
+                    _id: newUser[0]._id,
+                    name: newUser[0].name,
+                    email: newUser[0].email
+                },
+                token
+            }
+        });
     } catch (error) {
         await session.abortTransaction();
         session.endSession();
