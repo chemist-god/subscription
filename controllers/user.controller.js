@@ -13,3 +13,23 @@ export const getUsers = async (req, res, next) => {
         next(error);
     }
 }
+
+export const getUser = async (req, res, next) => {
+    try {
+        const User = await User.findById(req.params.id).select('-password');
+
+        if (!User) {
+            const error = new Error('User not found');
+            error.statusCode = 404;
+            throw error;
+        }
+
+        return res.status(200).json({
+            success: true,
+            data: User
+        });
+
+    } catch (error) {
+        next(error);
+    }
+}
