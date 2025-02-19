@@ -28,6 +28,7 @@ export const signUp = async (req, res) => {
         await session.commitTransaction();
         session.endSession();
         return res.status(201).json({ 
+            success: true,
             message: 'User created successfully',
             data: {
                 user: {
